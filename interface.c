@@ -13,7 +13,7 @@ void printHeader()
     
     printf("============================================================\n");
     printf("||                                                        ||\n");
-    printf("||          LIBRARY MANAGEMENT SYSTEM                    ||\n");
+    printf("||          LIBRARY MANAGEMENT SYSTEM                     ||\n");
     printf("||                                                        ||\n");
     printf("============================================================\n");
 
