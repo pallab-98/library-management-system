@@ -1,9 +1,100 @@
 #include <stdio.h>
+#include <string.h>
+#include <ctype.h>
 #include <conio.h>
 
 #include "regis.h"
 #include "interface.h"
+#include "file.h"
 
+
+// ==================================================
+// USERNAME VALIDATION
+// ==================================================
+
+int validUsername(char username[])
+{
+    int length = strlen(username);
+
+    // Username length
+    if (length < 4 || length > 20)
+    {
+        return 0;
+    }
+
+    // Username must start with letter
+    if (!isalpha(username[0]))
+    {
+        return 0;
+    }
+
+    // Only letters, numbers and underscore
+    for (int i = 0; i < length; i++)
+    {
+        if (!isalnum(username[i]) && username[i] != '_')
+        {
+            return 0;
+        }
+    }
+
+    return 1;
+}
+
+
+// ==================================================
+// PASSWORD VALIDATION
+// ==================================================
+
+int validPassword(char password[])
+{
+    int length = strlen(password);
+
+    int hasUpper = 0;
+    int hasLower = 0;
+    int hasDigit = 0;
+    int hasSpecial = 0;
+
+    // Password minimum 8 characters
+    if (length < 7)
+    {
+        return 0;
+    }
+
+    for (int i = 0; i < length; i++)
+    {
+        if (isupper(password[i]))
+        {
+            hasUpper = 1;
+        }
+
+        else if (islower(password[i]))
+        {
+            hasLower = 1;
+        }
+
+        else if (isdigit(password[i]))
+        {
+            hasDigit = 1;
+        }
+
+        else
+        {
+            hasSpecial = 1;
+        }
+    }
+
+    if (hasUpper && hasLower && hasDigit && hasSpecial)
+    {
+        return 1;
+    }
+
+    return 0;
+}
+
+
+// ==================================================
+// REGISTRATION MENU
+// ==================================================
 
 void registration()
 {
@@ -20,7 +111,7 @@ void registration()
 
         printf("╔══════════════════════════════════════════════╗\n");
         printf("║                                              ║\n");
-        printf("║                  REGISTRATION                ║\n");
+        printf("║                 REGISTRATION                 ║\n");
         printf("║                                              ║\n");
         printf("╠══════════════════════════════════════════════╣\n");
         printf("║                                              ║\n");
@@ -29,29 +120,29 @@ void registration()
         // Admin Registration
         if (selected == 0)
         {
-            printf("║              \033[1;30;46m> Admin Registration <\033[0m          ║\n");
+            printf("║      \033[1;30;46m       > Admin Registration <       \033[0m      ║\n");
         }
         else
         {
-            printf("║                Admin Registration           ║\n");
+            printf("║               Admin Registration             ║\n");
         }
 
 
         // User Registration
         if (selected == 1)
         {
-            printf("║              \033[1;30;46m> User Registration <\033[0m           ║\n");
+            printf("║      \033[1;30;46m        > User Registration <        \033[0m      ║\n");
         }
         else
         {
-            printf("║                User Registration            ║\n");
+            printf("║                User Registration             ║\n");
         }
 
 
         // Back
         if (selected == 2)
         {
-            printf("║                      \033[1;30;46m> Back <\033[0m              ║\n");
+            printf("║      \033[1;30;46m              > Back <              \033[0m      ║\n");
         }
         else
         {
@@ -88,7 +179,7 @@ void registration()
         }
 
 
-        // Arrow Keys
+        // ARROW KEY
         if (key == 224)
         {
             key = _getch();
@@ -121,29 +212,129 @@ void registration()
 }
 
 
-// Admin Registration
+// ==================================================
+// ADMIN REGISTRATION
+// ==================================================
+
 void adminRegistration()
 {
+    char username[50];
+    char password[100];
+
     clearScreen();
 
     printHeader();
 
     printTitle("ADMIN REGISTRATION");
 
-    infoMessage("Admin Registration Selected!");
 
+    printf("\n");
+    printf("Enter Username : ");
+    scanf("%49s", username);
+
+
+    // Username validation
+    if (!validUsername(username))
+    {
+        errorMessage(
+            "Username must be 4-20 chars, letters/numbers/_ only."
+        );
+
+        return;
+    }
+
+
+    // Duplicate username
+    if (doualCheckUsernameExists(username))
+    {
+        errorMessage("Username already exists!");
+
+        return;
+    }
+
+
+    printf("Enter Password : ");
+
+    scanf("%99s", password);
+
+
+    // Password validation
+    if (!validPassword(password))
+    {
+        errorMessage(
+            "Password needs 8+ chars, upper, lower, digit & special."
+        );
+
+        return;
+    }
+
+
+    saveAdmin(username, password);
+
+
+    successMessage("Admin registration successful!");
 }
 
 
-// User Registration
+// ==================================================
+// USER REGISTRATION
+// ==================================================
+
 void userRegistration()
 {
+    char username[50];
+    char password[100];
+
     clearScreen();
 
     printHeader();
 
     printTitle("USER REGISTRATION");
 
-    infoMessage("User Registration Selected!");
 
+    printf("\n");
+    printf("Enter Username : ");
+    scanf("%49s", username);
+
+
+    // Username validation
+    if (!validUsername(username))
+    {
+        errorMessage(
+            "Username must be 4-20 chars, letters/numbers/_ only."
+        );
+
+        return;
+    }
+
+
+    // Duplicate username
+    if (doualCheckUsernameExists(username))
+    {
+        errorMessage("Username already exists!");
+
+        return;
+    }
+
+
+    printf("Enter Password : ");
+
+    scanf("%99s", password);
+
+
+    // Password validation
+    if (!validPassword(password))
+    {
+        errorMessage(
+            "Password needs 8+ chars, upper, lower, digit & special."
+        );
+
+        return;
+    }
+
+
+    saveUser(username, password);
+
+
+    successMessage("User registration successful!");
 }
