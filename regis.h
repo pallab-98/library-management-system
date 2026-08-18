@@ -3,4 +3,7 @@
 
 void registration();
 
+void adminRegistration();
+void userRegistration();
+
 #endif
