@@ -1,7 +1,18 @@
 #include <stdio.h>
+#include <conio.h>
+
 #include "login.h"
+#include "interface.h"
+
 
 void login()
 {
-    printf("\nLogin module coming soon...\n");
+    clearScreen();
+
+    printHeader();
+
+    printTitle("LOGIN");
+
+    infoMessage("Login Module Selected!");
+
 }

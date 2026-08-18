@@ -1,7 +1,9 @@
 #include <stdio.h>
 #include <conio.h>
+
 #include "regis.h"
 #include "interface.h"
+
 
 void registration()
 {
@@ -11,15 +13,18 @@ void registration()
     while (1)
     {
         clearScreen();
+
         printHeader();
 
         printf("\n");
+
         printf("╔══════════════════════════════════════════════╗\n");
         printf("║                                              ║\n");
         printf("║                  REGISTRATION                ║\n");
         printf("║                                              ║\n");
         printf("╠══════════════════════════════════════════════╣\n");
         printf("║                                              ║\n");
+
 
         // Admin Registration
         if (selected == 0)
@@ -31,6 +36,7 @@ void registration()
             printf("║                Admin Registration           ║\n");
         }
 
+
         // User Registration
         if (selected == 1)
         {
@@ -40,6 +46,7 @@ void registration()
         {
             printf("║                User Registration            ║\n");
         }
+
 
         // Back
         if (selected == 2)
@@ -51,12 +58,15 @@ void registration()
             printf("║                      Back                    ║\n");
         }
 
+
         printf("║                                              ║\n");
         printf("╠══════════════════════════════════════════════╣\n");
         printf("║          ↑ ↓ Select     ENTER Confirm        ║\n");
         printf("╚══════════════════════════════════════════════╝\n");
 
+
         key = _getch();
+
 
         // ENTER
         if (key == 13)
@@ -65,20 +75,24 @@ void registration()
             {
                 adminRegistration();
             }
+
             else if (selected == 1)
             {
                 userRegistration();
             }
+
             else if (selected == 2)
             {
                 return;
             }
         }
 
-        // Arrow keys
+
+        // Arrow Keys
         if (key == 224)
         {
             key = _getch();
+
 
             // UP
             if (key == 72)
@@ -90,6 +104,7 @@ void registration()
                     selected = 2;
                 }
             }
+
 
             // DOWN
             else if (key == 80)
@@ -103,4 +118,32 @@ void registration()
             }
         }
     }
+}
+
+
+// Admin Registration
+void adminRegistration()
+{
+    clearScreen();
+
+    printHeader();
+
+    printTitle("ADMIN REGISTRATION");
+
+    infoMessage("Admin Registration Selected!");
+
+}
+
+
+// User Registration
+void userRegistration()
+{
+    clearScreen();
+
+    printHeader();
+
+    printTitle("USER REGISTRATION");
+
+    infoMessage("User Registration Selected!");
+
 }

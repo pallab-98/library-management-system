@@ -1,7 +1,9 @@
 #include <stdio.h>
+
 #include "interface.h"
 #include "regis.h"
 #include "login.h"
+
 
 int main()
 {
@@ -12,11 +14,13 @@ int main()
         // Main Menu
         choice = mainMenu();
 
+
         // Registration
         if (choice == 1)
         {
             registration();
         }
+
 
         // Login
         else if (choice == 2)
@@ -24,10 +28,12 @@ int main()
             login();
         }
 
+
         // Exit
         else if (choice == 3)
         {
             clearScreen();
+
             printHeader();
 
             successMessage("Thank you for using Library Management System!");
