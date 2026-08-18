@@ -3,5 +3,9 @@
 
 void clearScreen();
 void printHeader();
+int mainMenu();
+
+void successMessage(char message[]);
+void errorMessage(char message[]);
 
 #endif

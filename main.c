@@ -1,19 +1,43 @@
 #include <stdio.h>
 #include "interface.h"
+#include "regis.h"
+#include "login.h"
 
 int main()
 {
-    clearScreen();
+    int choice;
 
-    printHeader();
+    while (1)
+    {
+        // Main Menu
+        choice = mainMenu();
 
-    printf("\n");
-    printf("        1. Registration\n");
-    printf("        2. Login\n");
-    printf("        3. Exit\n");
+        // Registration
+        if (choice == 1)
+        {
+            registration();
+        }
 
-    printf("\n        Enter Choice: ");
+        // Login
+        else if (choice == 2)
+        {
+            login();
+        }
 
-    
+        // Exit
+        else if (choice == 3)
+        {
+            clearScreen();
+            printHeader();
+
+            successMessage("Thank you for using Library Management System!");
+
+            printf("\n");
+            printf("        Exiting application...\n\n");
+
+            break;
+        }
+    }
+
     return 0;
 }
